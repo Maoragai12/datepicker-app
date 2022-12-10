@@ -1,0 +1,39 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Sample SAM Template for datepicker-app
+Globals:
+  Function:
+    Timeout: 3
+Resources:
+  GetAvailableRentalDateFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handler/get-available-rental-date-handler.handler
+      Runtime: nodejs16.x
+      Architectures:
+        - x86_64
+      Events:
+        Api:
+          Type: Api 
+          Properties:
+            Path: /availability
+            Method: get
+    Metadata:
+      BuildMethod: esbuild
+      BuildProperties:
+        Minify: true
+        TreeShaking: true
+        Target: "es2020"
+        Sourcemap: false
+        EntryPoints: 
+          - src/handler/get-available-rental-date-handler.js
+Outputs:
+  HelloWorldApi:
+    Description: "API Gateway endpoint URL for 'get available rental date' function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/"
+  GetAvailableRentalDateFunctionArn:
+    Description: "'get available rental date' Lambda Function ARN"
+    Value: !GetAtt GetAvailableRentalDateFunction.Arn
+  GetAvailableRentalDateFunctionIamRole:
+    Description: "Implicit IAM Role created for 'get available rental date' function"
+    Value: !GetAtt GetAvailableRentalDateFunctionRole.Arn
