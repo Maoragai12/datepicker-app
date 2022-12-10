@@ -12,7 +12,7 @@ This project contains source code for datepicker app. The repo contains both the
 
 **NOTE: Adjust the Lambda function's Node version in the `template.yaml` by your computer Node version.**
 
-- Enter the `backend` directory.
+- Navigate to the `backend` directory in the terminal.
 - Run `npm i`.
 - Build the Lambda function with `sam build`.
 - Run the Lambda and the API Gateway with `sam local start-api --port 3003`.
